@@ -1,0 +1,45 @@
+\section{Un algorithme en profondeur}
+\subsection{Généralités sur les graphes}
+
+Un graphe est un ensemble de points appelés \textit{sommets} (\textit{\textbf{v}ertices} en anglais) et de connections appelées \textit{arêtes} (\textit{\textbf{e}dges} en anglais). Voici par exemple un graphe de $6$ sommets et de $7$ arêtes:
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{images/graph.png}
+\end{center}
+
+Dans ce cas-ci, les points sont $1, 2, 3, 4, 5, 6$ et les connections sont \\ $(1,2),(1,5),(2,3),(2,5),(3,4),(4,5),(4,6)$. \\
+D'un point de vue mathématique, le \textbf{g}raphe G peut se définir ainsi: 
+$$\begin{array}{l}
+G = (V, E), \\
+V = \{1,2,3,4,5,6\}, \\
+E = \{(1,2),(1,5),(2,3),(2,5),(3,4),(4,5),(4,6)\}.
+\end{array}$$
+
+% TODO: définir chemin, sommet adjacent
+
+\subsection{Composantes connexes}
+Le graphe ci-dessus est un exemple de graphe \textit{connexe}, c'est-à-dire un graph dont tout point est relié à tout point. Il existe aussi des graphes non connexes. Les différentes parties connexes du graphe sont alors appelées des \textit{composantes connexes}. Le graphe ci-dessous est ainsi composé de $3$ composantes connexes. Il est clair que le graphe est non connexe car le point $1$ n'est par exemple pas relié au point $3$.
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{images/3-components.png}
+\end{center}
+
+\subsection{Parcours d'un graphe}
+\paragraph{}
+Voyons maintenant comment on peut détecter les différentes composantes connexes d'un graphe. Pour ce faire, commençons par remarquer la transitivité de la définition d'une composante connexe. En effet, s'il existe un chemin de $u$ à $v$ et de $u$ à $w$, il existe forcément un chemin allant de $v$ à $w$ et inversément. Il suffit en effet de partir de $v$, de se rendre à $u$ et de rejoindre $w$ depuis $u$. Cette propriété peut sembler anodine, mais elle affirme que pour détecter une composante connexe, il suffit de partir d'un sommet quelconque et de parcourir le graphe en catalogant tous les sommets atteignables.
+
+\paragraph{}
+Un algorithme classique pour parcourir les graphes est le \textit{depth-first search} (DFS) ou encore \textit{parcours en profondeur}, appelé ainsi parce qu'il va aussi loin qu'il peut avant de revenir en arrière. \\
+On part d'un sommet $u$. Si le sommet $u$ n'a pas encore été visité, on le marque comme visité. Ensuite, pour chaque sommet $v$ adjacent à $u$, on reprend l'algorithme récursivement. En C++, cela donne:
+
+\lstinputlisting[caption=DFS]{src/simple-dfs.cpp}
+
+\paragraph{}
+Cet algorithme ne parcourt qu'une seule composante connexe. Afin de détecter toutes les composantes connexes, on peut essayer de lancer l'algorithme depuis chaque sommet. Si l'algorithme n'a pas encore été lancé depuis un sommet $u$, c'est que $u$ appartient à une nouvelle composante connexe.
+
+\lstinputlisting[caption=Composantes connexes]{src/simple-dfs-call.cpp}
+
+\paragraph{}
+Ce code parcourt bien tous les sommets mais il ne permet toujours pas de déterminer la composante connexe d'un sommet donné. Réglons ce problème: plutôt que d'enregistrer si un sommet a été visité ou non, on peut directement enregistrer à quelle composante connexe il appartient.
+
+\lstinputlisting[caption=Composantes connexes]{src/simple-cc-full.cpp}
