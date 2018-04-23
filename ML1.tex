@@ -36,7 +36,7 @@ La matrice des $m$ est la matrice des poids (\textit{weights}) et la matrice des
 
 Il faut un système avec tous les paramètres $m$ et tous les paramètres $b$ et le but est de, en faisant varier les paramètres, entrainer le système à reconnaitre et à faire des prédictions de plus en plus fiable.
 
-\item Evalutation : après l’entrainement, une évaluation du système avec des nouvelles données nous aide à voir le pourcentage de fiabilité du module.
+\item Evaluation : après l’entrainement, une évaluation du système avec des nouvelles données nous aide à voir le pourcentage de fiabilité du module.
 
 \item Paramètre et hyperparamètre : ce sont deux types de paramètre. Ces paramètres expriment les propriétés de «niveau supérieur» du modèle telles que la complexité et la rapidité d'apprentissage. Les hyperparamètres, ne pouvant pas être directement appris sur base de l'entrainement, sont généralement fixés avant-même que le processus d’apprentissage commence. De manière générale, on fixe la valeur de l’hyperparamètre, après avoir testé différentes valeurs de celui-ci et en décidant lesquels fonctionnent le mieux.
 
@@ -50,3 +50,40 @@ L'apprentissage supervisé est la forme de machine learning la plus répandue. E
 L'apprentissage non-supervisé consiste à faire aucun lien entre les entrées et sorties. L'algorithme doit trouver par lui-même la strucure cachée entre les données. Ainsi, aucun expert n'est requis. Et la phase de prédiction est dès lors impossible : l'algorithme classe uniquement les données.
 \paragraph{Apprentissage par renforcement}
 Par ce dernier apprentissage, l'algorithme modifie son comportement au vu des observations et des résultats qu'il tire de ses expériences. Chaque nouvelle action de l'algorithme lui permet de connaître mieux son environnement et ainsi d'optimiser d'avantage son apprentissage.
+
+\subsubsection{Le deep learning}
+\paragraph{Limitations du machine learning conventionnel}
+Dans des problèmes plus compliqués, on peut avoir plus d’une donnée en entrée $x$, ce qui donne une relation graphique de plus en plus complexe au fur et à mesure que l'on ajoute des entrées. On se rend rapidement compte que la simple droite ne pourra pas répondre à nos attentes en reconnaissance d’image dans beaucoup de situations. Une image est composée de millions de pixel et en machine learning il devient rapidement compliqué de gérer une telle quantité de données en entrée. C'est ici qu'intervient le deep learning.
+
+
+\paragraph{Des neurones en réseau}
+Le deep learning est une façon de faire du machine learning. Il utilise des neurones artificiels pour trouver la sortie $y$.
+Un neurone (artificiel) est une construction mathématique qui va mettre en relation des entrées $X$ avec une sortie $Y$. En ce sens, c'est juste une fonction à plusieurs variables.
+
+\subparagraph{Exemple}
+On pourrait par exemple avoir un neurone qui, pour une série de $n$ entrées $x_i$ et de $n$ poids $w_i$ (avec $i \in [1, n]$), calculerait la somme $s = \sum_{i = 1}^n x_iw_i$. Selon que cette somme serait $>= S$ ou $< S$ où $S$ est un seuil fixé, le neurone renverrait $1$ ou $0$ respectivement. On pourrait ainsi créer un système binaire.
+\subparagraph{}
+Ce n'est bien sûr qu'un exemple, mais il montre bien la polyvalence d'un neurone.
+Dans des situations plus complexes, on peut combiner les neurones et créer alors un réseau de
+neurones.
+Pour augmenter la fiabilité des résultats, il faut passer par une phase d’entrainement avant d’entrer dans la phase de prédiction, comme dans le machine learning.
+Pour adapter au mieux la justesse des réponses, l’algorithme joue sur les poids et les seuils.
+
+Un des gros inconvénient du deep learning est qu’au plus on ajoute de couches de neurones, au plus
+la phase d’entrainement est longue et au plus il devient difficile de trouver les bonnes valeurs de
+poids et seuil.
+
+\paragraph{Application à la reconnaissance d'images}
+Sur une image brute, il y a beaucoup de pixels. Il est donc très difficile de pouvoir établir un réseau de
+neurones.
+Pour pouvoir reconnaitre des images, il est plus simple de faire abstraction de l’image et de créer un
+algorithme intermédiaire qui aura pour but d’analyser toutes les caractéristiques intéressantes. Ce
+sont ensuite ces caractéristiques qui seront données à un réseau de neurones simple pour faire la
+reconnaissance. Cette approche est plus efficace. L’algorithme filtre déjà une partie de l’information
+inintéressante pour la reconnaissance. Le seul problème de cette méthode est que la qualité de la reconnaissance va fortement
+dépendre du choix des caractéristiques par l’algorithme et du réseau de neurones.
+\subparagraph{}
+Cependant, on peut faire un réseau profond, c’est un très gros réseau de neurones auxquels on peut
+directement donner l’image brute. Si l’on parvient à correctement entrainer ce réseau, on se rend
+compte qu’après l’entrainement, le réseau a lui-même découvert les caractéristiques à sélectionner dans les images. Il y a une architecture particulière à respecter pour que le réseau soit le plus efficace possible. Cette méthode n’a pu se développer fortement ces dernière années que grâce à la grande disponibilité des données. A l’heure actuelle, on peut faire des réseaux de deep learning de plus d’une centaine de couches constituées de plusieurs millions de neurones. Les performances en
+reconnaissance d’images sont assez spectaculaires.
