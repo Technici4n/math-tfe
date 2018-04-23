@@ -6,8 +6,15 @@
 \usepackage[francais]{babel}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{listings} % code source
+\usepackage{listings}
 \usepackage{color}
+\usepackage{accents}
+\usepackage{eurosym}
+\usepackage[bottom]{footmisc}
+\usepackage{fancyhdr}
+\usepackage[titletoc,title]{appendix}
+\usepackage{amsfonts}
+\usepackage{esvect}
  
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -59,20 +66,23 @@
   {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
 }
 
+% Paragraphes comme sous-sous-sous-sections
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
+\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+
 \begin{document}
+
+% TODO: title, ToC, introduction
 
 \input{amelia_maxime.tex}
 
-\section{Techniques de reconnaissance de pièces}
-
-\subsection{Détection d'ensembles d'une même couleur} % TODO: Trouver un nouveau sous-titre
-Une autre approche pour détecter des pièces de monnaie sur une image est d'exploiter le contraste entre les pièces elles-mêmes et le matériau sur lequel elles sont placées. Dans l'image suivante, par exemple, les pièces sont jaune ou rouge foncé alors que le fond est blanc.
-
-\begin{center}
-\includegraphics[width=0.5\linewidth]{images/manycoins.png}
-\end{center}
-
-Nous allons développer un algorithme permettant d'utiliser la couleur du fond pour isoler les pièces. Et nous allons l'appliquer à cette image afin d'en extraire les pièces.
+\input{different_techniques.tex}
 
 \input{one_algo.tex}
 
