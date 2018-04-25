@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[12pt,titlepage]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -74,16 +74,30 @@
             {\normalfont\normalsize\bfseries}}
 \makeatother
 \setcounter{secnumdepth}{4} % how many sectioning levels to assign numbers to
-\setcounter{tocdepth}{4}    % how many sectioning levels to show in ToC
+\setcounter{tocdepth}{3}    % how many sectioning levels to show in ToC
 
 \begin{document}
+% Titre
+\title{Reconnaissance de pièces de monnaie}
+\author{Maxime Lallemand, Arthur Mahy, Astrid Mehuys, \and Amelia Moore, Bruno Ploumhans, Gilles Prieur}
+% TODO: introduction
 
-% TODO: title, ToC, introduction
+\maketitle
+
+\tableofcontents
+\newpage
 
 \input{amelia.tex}
 
 \input{different_techniques.tex}
 
 \input{one_algo.tex}
+
+\appendix
+
+\section{Bibliographie}
+\section{Code de l'algorithme}
+\lstinputlisting{src/main.cpp}
+\section{Détection de la valeur des pièces}
 
 \end{document}

@@ -29,25 +29,26 @@ Toutes les droites passant par un point de coordonn\'ees $(x_1, y_1)$ fix\'ees o
 \end{center}
 
 \paragraph{Principe d\'etaill\'e}
+\subparagraph{}
 On va changer le rep\`ere en rempla\c cant $x$ par $a$ et $y$ par $b$.
 Chaque droite dans l'espace $(x, y)$ sera transform\'ee en un point dans l'espace $(a, b)$, espace de Hough.
 Invers\'ement, chaque point dans l'espace $(x, y)$ sera transform\'e en une droite d'\'equation $b=-ax+y$ dans l'espace de Hough.
 \begin{center}
 \includegraphics[height=3cm]{images/hough_3.png}
 \end{center}
-Pour un point $A$, toutes les droites passant par ce point correspondent \`a une seule droite $a$ dans l'espace de Hough. \\
-Pour un point $B$, toutes les droites passant par ce point correspondent \`a une seule droite $b$ dans l'espace de Hough. \\
-Ces $2$ faisceaux de droites dans l'espace $(x, y)$ ont en commun l'unique droite qui relie $A$ et $B$. \\
-Cette droite correspond, dans l'espace de Hough, au point qui est l'intersubsection des $2$ droites $a$ et $b$. \\
-Cette intersection, ce point contient les param\`etres de la droite recherch\'ee. \\
- \\
-Tous les points situ\'es sur une m\^eme droite $c$ dans l'espace $(x, y)$ sont repr\'esent\'es par des droites passant toutes par un m\^eme point $C$ dans l'espace de Hough. \\
-Les coordonn\'ees de ce point $C(x_c, y_c)$ contiennent les param\`etres recherch\'es de la droite $c \equiv y=x_cx+y_c$ \\
- \\
-Il existe un principe de vote : on utilise un accumulateur o\`u chaque point peut voter pour une droite particuli\`ere et les droites recevant le plus de votes sont conserv\'ees. \\
-On ne va cependant pas d\'evelopper ce principe ici. \\
- \\
-Cette repr\'esentation $y=ax+b$ pose un probl\`eme pour les droites verticales.  Voil\`a pourquoi la repr\'esentation suivante, qui r\`egle ce probl\`eme, est la plus utilis\'ee.
+Pour un point $A$, toutes les droites passant par ce point correspondent \`a une seule droite $a$ dans l'espace de Hough.
+Pour un point $B$, toutes les droites passant par ce point correspondent \`a une seule droite $b$ dans l'espace de Hough.
+Ces $2$ faisceaux de droites dans l'espace $(x, y)$ ont en commun l'unique droite qui relie $A$ et $B$.
+Cette droite correspond au point qui est l'intersubsection des $2$ droites $a$ et $b$.
+Finalement, cette intersection contient les param\`etres de la droite recherch\'ee.
+
+\subparagraph{}
+Tous les points situ\'es sur une m\^eme droite $c$ dans l'espace $(x, y)$ sont repr\'esent\'es par des droites passant toutes par un m\^eme point $C$ dans l'espace de Hough.
+Les coordonn\'ees de ce point $C(x_c, y_c)$ contiennent les param\`etres recherch\'es de la droite $c \equiv y=x_cx+y_c$. Afin de déterminer quelles droites sont les plus présentes, on utilise un accumulateur o\`u chaque point peut voter pour une droite particuli\`ere et les droites recevant le plus de votes sont conserv\'ees.
+On ne va cependant pas d\'evelopper ce principe ici.
+
+\subparagraph{}
+Remarquons que la repr\'esentation $y=ax+b$ pose un probl\`eme pour les droites verticales.  Voil\`a pourquoi la repr\'esentation suivante, qui r\`egle ce probl\`eme, est la plus utilis\'ee.
 
 \subsubsection{Approche trigonom\'etrique}
 
@@ -64,13 +65,14 @@ $$\begin{cases}
 \end{center}
 
 \paragraph{Principe d\'etaill\'e}
-On change \'egalement le rep\`ere en rempla\c cant $x$ par $\theta$ et $y$ par $\rho$ : \\
-Chaque droite dans l'espace $(x, y)$ sera transform\'ee en un point dans l'espace $(\rho, \theta)$. \\
-Chaque point dans l'espace $(x, y)$ sera transform\'e en une courbe, une sinuso\"ide dans l'espace $(\rho, \theta)$. \\
- \\
-Les points d'intersubsection des sinuso\"ides dans l'espace $(\rho, \theta)$ sont utilis\'es pour trouver les droites dans l'espace $(x, y)$. \\
- \\
-La transform\'ee de Hough fait ensuite appel \`a un algorithme qui regarde tous les points et imagine toutes les valeurs possibles pour $\rho$ et $\theta$. \\
+\subparagraph{}
+On change \'egalement le rep\`ere en rempla\c cant $x$ par $\theta$ et $y$ par $\rho$.
+Chaque droite dans l'espace $(x, y)$ est alors transform\'ee en un point dans l'espace $(\rho, \theta)$.
+Chaque point dans l'espace $(x, y)$ est alors transform\'e en une courbe, une sinuso\"ide dans l'espace $(\rho, \theta)$.
+Les points d'intersubsection des sinuso\"ides dans l'espace $(\rho, \theta)$ sont utilis\'es pour trouver les droites dans l'espace $(x, y)$.
+
+\subparagraph{}
+La transform\'ee de Hough fait ensuite appel \`a un algorithme qui regarde tous les points et imagine toutes les valeurs possibles pour $\rho$ et $\theta$.
 On observe, dans l'espace $(\rho, \theta)$, des pics pour les valeurs qui reviennent le plus souvent et l'algorithme va d\'efinir les droites dans l'espace $(x, y)$ et donc les lignes d\'etect\'ees dans l'image.
 \begin{center}
 \includegraphics[height=3cm]{images/hough_5.png} \\
