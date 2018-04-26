@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
     cout << "Arguments: <sharpness> <tolerance> [filename]" << endl;
     return 1;
   }
-  // Load image
+  // Chargement l'image
   string filename(argc == 3 ? "image.png" : argv[3]);
   cout << "Loading image " << filename << endl;
   CImg<unsigned char> src(filename.c_str());
@@ -73,11 +73,11 @@ int main(int argc, char** argv) {
     ss >> sharpness;
   }
 
-  // Print information
+  // Affichage de quelques informations
   cout << "image width and height: " << w << "x" << h << endl;
   cout << "sharpness: " << sharpness << endl;
 
-  // Connected components
+  // Première passe
   cc.assign(h, vector<int>(w, -1));
   vector< pair<int, int> > sizes;
   int c = 0;
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     }
   cout << c << endl;
 
-  // Fill with random colors
+  // Remplissage par des couleurs aléatoires
   srand(time(0));
   vector< array<int, 3> > colors(c);
   for(int i = 0; i < c; ++i)
@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
 
   img.save_png("out_manycolors.png");
 
-  // Fill with 2 colors
+  // Deuxième passe
   if(c > 1) {
     sort(sizes.rbegin(), sizes.rend()); // Reverse sort
     colors.resize(2);
@@ -122,7 +122,7 @@ int main(int argc, char** argv) {
 
     img.save_png("out_2colors.png");
 
-    // Detect coins
+    // Detection des pièces
     chunks.assign(h, vector<int>(w, -1));
     for(int i = 0; i < h; ++i)
       for(int j = 0; j < w; ++j)
@@ -141,6 +141,7 @@ int main(int argc, char** argv) {
 	++sizes[chunks[i][j]].first;
       }
 
+		// Filtrages heuristiques
     double tolerance;
     {
       stringstream ss(argv[2]);

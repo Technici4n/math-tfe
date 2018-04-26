@@ -15,6 +15,8 @@
 \usepackage[titletoc,title]{appendix}
 \usepackage{amsfonts}
 \usepackage{esvect}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
  
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -80,12 +82,15 @@
 % Titre
 \title{Reconnaissance de pièces de monnaie}
 \author{Maxime Lallemand, Arthur Mahy, Astrid Mehuys, \and Amelia Moore, Bruno Ploumhans, Gilles Prieur}
-% TODO: introduction
 
 \maketitle
 
 \tableofcontents
 \newpage
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+Ce TFE porte sur la reconnaissance de pièces sur une image, à savoir la détection des ensembles de pixels correspondant à des pièces de monnaie. Comme il s'agit d'une forme d'intelligence artificielle, nous allons commencer par une définition et un historique de l'intelligence artificielle. Ensuite, nous verrons différentes techniques pouvant résoudre ce problème de façon plus ou moins efficace. Finalement, nous traiterons tous les aspects d'une de ces méthodes et nous irons jusqu'à l'implémenter afin de compter le nombre des pièces présentes sur une image.
 
 \input{amelia.tex}
 
@@ -93,11 +98,52 @@
 
 \input{one_algo.tex}
 
+\subsection*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+Nous avons donc parlé de l'histoire de l'intelligence artificielle. Nous avons ensuite considéré plusieurs techniques pour résoudre le problème de la reconnaissance de pièces de monnaie. Finalement, nous avons développé un algorithme en particulier et nous avons déterminé que cet algorithme est très efficace: il a un temps d'exécution et une utilisation de mémoire optimaux et produit de bons résultats. Cerise sur le gâteau, nous proposons en annexe une piste d'amélioration afin de compter la valeur exacte de chacune des pièce.
+
 \appendix
 
-\section{Bibliographie}
-\section{Code de l'algorithme}
-\lstinputlisting{src/main.cpp}
 \section{Détection de la valeur des pièces}
+\subsection{Détection de la figure des pièces}
+Afin de détecter la valeur exacte de chaque pièce, nous pourrions maintenir une liste des différents symboles apparaissant sur les pièces de monnaie couramment utilisées dans le monde et voir duquel de ces symboles s'approchent le plus ceux des pièces détectées. Pour ce faire, nous pourrions prendre les valeurs des pixels le long de cercles pris à intervalles réguliers. Par exemple, nous pourrions décider de prendre $10$ cercles concentriques de rayons d'une longueur de $10\%, 20\%, \ldots, 100\%$ du rayon de chacune des pièces et de parcourir les pixels qui s'y trouvent. Nous pourrions ainsi comparer le signal obtenu et déterminer à quel symbole correspond une pièce de monnaie donnée en utilisant par exemple la méthode des moindres carrés. Malheureusement, cet algorithme ne tient pas compte de la rotation des pièces et garder traces de toutes les pièces de monnaie en usage dans tout le monde à tous les angles possibles ne semble pas faisable.
+
+\subsection{Problème de la rotation}
+Il existe une solution théorique relativement simple à ce problème. Il suffit en effet d'appliquer la transformée de Fourier à chacun des signaux et d'éliminer ensuite le déphasage afin d'aligner les différents signaux obtenus avant de reprendre l'algorithme.
+
+\subsection{Caveat emptor}
+Estimant que ces améliorations sortent de l'ampleur de notre TFE, nous n'avons pas creusé ces idées et nous ne les avons pas implémentées. Nous n'avons donc pas pu vérifier l'efficacité de l'algorithme suggéré ci-dessus et nous sommes peut-être passés à côté de certains problèmes essentiels avec cette nouvelle méthode. Bien qu'elle semble fonctionner d'un point de vue théorique, elle est donc à prendre avec des pincettes.
+
+\section{Code de l'algorithme}
+Voici le code que nous avons utilisé afin de compter le nombre de pièces de monnaie et de générer les différentes images présentées plus haut. Il nécessite la bibliothèque \textit{CImg}, elle-même faisant usage de $\textit{libpng}$ et de $\textit{libjpeg}$. Ce code compile sous Debian avec les options suivantes:
+\begin{lstlisting}
+g++ -pthread -lpng -ljpeg -lX11 -std=gnu+14 main.cpp
+\end{lstlisting}
+
+\lstinputlisting[caption=Notre algorithme]{src/program/main.cpp}
+
+\section{Bibliographie}
+
+%\small{
+\begin{itemize}
+
+\sloppy
+\item \url{https://www.quora.com/What-are-hyperparameters-in-machine-learning}.
+\item \url{https://www.lesechos.fr/idees-debats/cercle/cercle-161999-demystifier-la-machine-learning-2038392.php}.
+\item \url{https://www.youtube.com/watch?v=nKW8Ndu7Mjw}.
+\item \url{https://www.youtube.com/watch?v=trWrEWfhTVg}.
+\item \url{https://www.youtube.com/watch?v=h0e2HAPTGF4}.
+\item \url{https://openclassrooms.com/courses/initiez-vous-au-machine-learning/qu-est-ce-que-le-machine-learning}.
+\item \url{https://www.youtube.com/watch?v=trWrEWfhTVg}.
+\item \url{https://fr.wikipedia.org/wiki/Apprentissage_automatique}.
+\item \url{https://openclassrooms.com/courses/initiez-vous-au-machine-learning/qu-est-ce-que-le-machine-learning}.
+\item \url{https://www.quantmetry.com/single-post/2015/10/28/Une-petite-histoire-du-Machine-Learning}.
+\item \url{http://loic.knuchel.org/blog/2013/11/22/le-machine-learning-cest-quoi-exactement/}.
+\item \url{https://markdown.data-ensta.fr/s/machine-learning-introduction}.
+\item \url{https://www.futura-sciences.com/tech/definitions/informatique-intelligence-artificielle-555/}.
+\item \url{https://fr.wikipedia.org/wiki/Intelligence_artificielle}.
+
+\end{itemize}
+%}
 
 \end{document}

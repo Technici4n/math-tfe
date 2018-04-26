@@ -1,12 +1,13 @@
 \subsection{Transform\'ee de Hough}
 
 \subsubsection{Introduction}
-La transform\'ee (ou transformation) de Hough est une technique de reconnaissance de formes invent\'ee en 1962 par Paul Hough. \\
-L'application la plus simple permet de d\'etecter les lignes/droites pr\'esentes dans une image mais des modifications peuvent \^etre apport\'ees \`a cette technique pour d\'etecter d'autres formes g\'eom\'etriques (cercles, ellipses...) : c'est la transform\'ee g\'en\'eralis\'ee de Hough d\'evelopp\'ee par Richard Duda et Peter Hart en 1972. \\
-Cette technique est devenue un outil standard dans le domaine de la vision artificielle.
+Après avoir vu ce qu'il est possible de faire dans le domaine du machine learning, penchons nous maintenant sur la \textit{transformée de Hough}, qui est un algorithme traitant exclusivement de la reconnaissance d'images. La transform\'ee (ou transformation) de Hough est une technique de reconnaissance de formes invent\'ee en 1962 par \textbf{Paul Hough}.
+Son application la plus simple permet de d\'etecter les lignes/droites pr\'esentes dans une image mais des modifications peuvent \^etre apport\'ees \`a cette technique pour d\'etecter d'autres formes g\'eom\'etriques (cercles, ellipses...) : c'est la transform\'ee g\'en\'eralis\'ee de Hough d\'evelopp\'ee par Richard Duda et Peter Hart en 1972.
+Cette technique est devenue un outil standard dans le domaine de la vision artificielle, et elle est notamment utilisée pour la d\'etection de routes dans les images prises par satellite, pour la lecture de codes barres ou encore dans le logiciel \textit{OpenCV}.
+Le principe fondamental étant le même que pour la reconnaissance de cercles, nous allons développer ici la reconnaissance de droites dans une image, ce qui rend l'algorithme plus simple à comprendre sans toutefois masquer sa puissance.
 
 \subsubsection{Principe}
-Le probl\`eme pos\'e est celui de la recherche et de la d\'etection de lignes qui seraient \'eventuellement pr\'esentes dans une image \`a analyser. Le principe de la transform\'ee de Hough est qu'il existe un nombre infini de lignes qui passent par un point, dont la seule diff\'erence est la pente a, l'orientation, l'angle... Le but de la transform\'ee est de d\'eterminer lesquelles de ces lignes sont les plus pr\'esentes dans l'image analys\'ee.
+Le probl\`eme pos\'e est donc celui de la recherche et de la d\'etection de lignes qui seraient \'eventuellement pr\'esentes dans une image \`a analyser. Le principe de la transform\'ee de Hough est qu'il existe un nombre infini de lignes qui passent par un point, dont la seule diff\'erence est la pente $a$, l'orientation, l'angle... Le but de la transform\'ee est de d\'eterminer lesquelles de ces lignes sont les plus pr\'esentes dans l'image analys\'ee.
 \begin{center}
 \includegraphics[height=4cm]{images/hough_1.png}
 \end{center}
@@ -23,6 +24,8 @@ b$ est l'ordonn\'ee \`a l'origine$
 \begin{center}
 \includegraphics[height=3cm]{images/hough_2.png}
 \end{center}
+
+\subparagraph{}
 Toutes les droites passant par un point de coordonn\'ees $(x_1, y_1)$ fix\'ees ont la forme $y_1=ax_1+b$ pour diff\'erentes valeurs de $a$ et $b$. 
 \begin{center}
 \includegraphics[height=3cm]{images/hough_8.png}
@@ -36,6 +39,7 @@ Invers\'ement, chaque point dans l'espace $(x, y)$ sera transform\'e en une droi
 \begin{center}
 \includegraphics[height=3cm]{images/hough_3.png}
 \end{center}
+\subparagraph{}
 Pour un point $A$, toutes les droites passant par ce point correspondent \`a une seule droite $a$ dans l'espace de Hough.
 Pour un point $B$, toutes les droites passant par ce point correspondent \`a une seule droite $b$ dans l'espace de Hough.
 Ces $2$ faisceaux de droites dans l'espace $(x, y)$ ont en commun l'unique droite qui relie $A$ et $B$.
@@ -53,7 +57,7 @@ Remarquons que la repr\'esentation $y=ax+b$ pose un probl\`eme pour les droites 
 \subsubsection{Approche trigonom\'etrique}
 
 \paragraph{Repr\'esentation polaire d'une droite}
-Une droite peut aussi \^etre repr\'esent\'ee par la formule $y\sin\theta+x\cos\theta=\rho$ (avec $\theta \in [-\pi/2 ; \pi/2]$ et $\rho \in [0 ; d]$ où $d$ est la longueur de la diagonale de l'image)  o\`u
+Une droite peut aussi \^etre repr\'esent\'ee par la formule $y\sin\theta+x\cos\theta=\rho$ (avec $\theta \in [0 ; \pi/2]$ et $\rho \in [0 ; d]$ où $d$ est la longueur de la diagonale de l'image)  o\`u
 
 $$\begin{cases}
 \theta$ est l'angle entre l'axe $x$ et le vecteur $\vec\rho \\
@@ -79,8 +83,3 @@ On observe, dans l'espace $(\rho, \theta)$, des pics pour les valeurs qui revien
 \includegraphics[height=3cm]{images/hough_6.png} \\ 
 \includegraphics[height=3cm]{images/hough_7.png}
 \end{center}
-
-\subsubsection{Conclusion}
-La transform\'ee de Hough est un outil efficace pour trouver les lignes dans une image. \\
-Il existe d'autres transform\'ees de Hough pour extraire d'autres formes. \\
-Elle est utilis\'ee dans plusieurs applications : d\'etection de routes dans les images prises par satellite, lecture de codes barres...

@@ -1,14 +1,17 @@
 \section{Techniques de reconnaissance de pièces}
 
+\subparagraph*{}
+Après cet aperçu de l'intelligence artificielle et de son histoire, penchons-nous sur $3$ méthodes permettant de reconnaître des pièces sur une image.
+
 \input{ML1.tex}
 
 \input{hough.tex}
 
 \subsection{Détection d'ensembles d'une même couleur} % TODO: Trouver un nouveau sous-titre
-Une autre approche pour détecter des pièces de monnaie sur une image est d'exploiter le contraste entre les pièces elles-mêmes et le matériau sur lequel elles sont placées. Dans l'image suivante, par exemple, les pièces sont jaune ou rouge foncé alors que le fond est blanc.
+Troisièmeme, nous pouvons exploiter les propriétés du problème afin de trouver un algorithme spécialisé certes mais relativement simple et très efficace. Remarquons que pour détecter des pièces de monnaie sur une image, il est possible d'exploiter le contraste entre les pièces elles-mêmes et le matériau sur lequel elles sont placées. Dans l'image suivante, par exemple, les pièces sont jaune ou rouge foncé alors que le fond est blanc.
 
 \begin{center}
 \includegraphics[width=0.5\linewidth]{images/15coins/manycoins.png}
 \end{center}
 
-Nous allons développer un algorithme permettant d'utiliser la couleur du fond pour isoler les pièces. Et nous allons l'appliquer à cette image afin d'en extraire les pièces.
+Nous allons donc développer un algorithme permettant d'utiliser la couleur du fond pour isoler les pièces. Et nous allons l'appliquer à cette image afin d'en extraire les pièces.
